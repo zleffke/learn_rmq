@@ -3,7 +3,7 @@ import pika
 import sys
 
 
-credentials = pika.PlainCredentials('vu_relay', 'password')
+credentials = pika.PlainCredentials('vu_relayd', 'password')
 parameters = pika.ConnectionParameters(host = '0.0.0.0',
                                        port = 5672,
                                        virtual_host = 'VU',
@@ -14,7 +14,7 @@ connection = pika.BlockingConnection(parameters)
 print 'pong'
 channel = connection.channel()
 
-channel.exchange_declare(exchange='RELAY_FB',
+channel.exchange_declare(exchange='RELAY',
                          exchange_type='topic',
                          durable=True)
 print 'ping'
@@ -29,7 +29,7 @@ if not binding_keys:
 
 for binding_key in binding_keys:
     print binding_key
-    channel.queue_bind(exchange='RELAY_FB',
+    channel.queue_bind(exchange='RELAY',
                        queue=queue_name,
                        routing_key=binding_key)
 

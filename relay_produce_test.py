@@ -17,7 +17,7 @@ channel = connection.channel()
 
 routing_key = sys.argv[1] if len(sys.argv) > 2 else 'anonymous.info'
 message = ' '.join(sys.argv[2:]) or 'Hello World!'
-channel.basic_publish(exchange='RELAY_FB',
+channel.basic_publish(exchange='RELAY',
                       routing_key=routing_key,
                       body=message)
 print(" [x] Sent %r:%r" % (routing_key, message))
